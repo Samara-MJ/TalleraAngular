@@ -1,0 +1,76 @@
+
+<!DOCTYPE html>
+          <html lang="en">
+          <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Cursos de TV</title>
+            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+            <style>
+              .banner {
+                width: 100%;
+                height: 100px;
+                background-color: blue;
+                position: relative;
+                margin-bottom: 20px;
+              }
+              .banner img {
+                position: absolute;
+                top: 10px; /* Adjust as needed */
+                left: 10px; /* Adjust as needed */
+                height: 80px; /* Adjust as needed */
+              }
+            </style>
+          </head>
+          <body>
+          
+            <div class="banner">
+              <img src="https://via.placeholder.com/80.png?text=TV" alt="TV Logo">
+            </div>
+          
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-6">
+                  <select class="form-select" (change)="onSelect($event.target)">
+                    <option *ngFor="let course of courses" [value]="course">{{course.name}}</option>
+                  </select>
+                  <table class="table mt-3">
+                    <thead>
+                      <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Temporadas</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngIf="selectedCourse">
+                        <td>{{selectedCourse.id}}</td>
+                        <td>{{selectedCourse.name}}</td>
+                        <td>{{selectedCourse.seasons}}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <td colspan="2"><strong>Promedio de Temporadas</strong></td>
+                <td id= averageSeasons></td>
+              </div>
+            </div>
+            <script>
+            function calculateAverageSeasons(courses) {
+      let averageSeasons = 0; // Inicializar la variable antes de su uso
+
+      if (!courses || courses.length === 0) {
+        return averageSeasons; // Si no hay cursos o la matriz está vacía, el promedio es cero
+      }
+
+      const totalSeasons = courses.reduce((sum, course) => sum + parseInt(course.seasons), 0);
+      averageSeasons = totalSeasons / courses.length;
+
+      return averageSeasons.toFixed(2);
+    }
+
+{ document.getElementById('averageSeasons').textContent = calculateAverageSeasons(courses);
+    }    </script>
+        
+
+
